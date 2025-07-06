@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="SampleCSS.css">
+        <title>Assignment 3</title>
+    </head>
+
+    <body>
+        <div>
+            <ul>
+                <li><a href="HomePage.html">Home</a></li>
+                <li><a href="AboutUs.html">About Us</a></li>
+                <li><a href="Registration.html">Registration</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="box">
+        <h1>USER REGISTRATION</h1>
+        <form id="registrationForm">
+            <table class="form-table">
+                <tr>
+                    <td><label for="firstName">First Name:</label></td>
+                    <td><input type="text" id="firstName" name="firstName" required></td>
+                </tr>
+                <tr>
+                    <td><label for="lastName">Last Name:</label></td>
+                    <td><input type="text" id="lastName" name="lastName" required></td>
+                </tr>
+                <tr>
+                    <td><label for="dob">Date of Birth:</label></td>
+                    <td><input type="date" id="dob" name="dob" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email ID:</label></td>
+                    <td><input type="email" id="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="phone">Telephone Number:</label></td>
+                    <td><input type="tel" id="phone" name="phone" pattern="^\d{10}$" required placeholder="10-digit number"></td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td>
+                        <input type="radio" name="gender" value="Male"> Male
+                        <input type="radio" name="gender" value="Female"> Female
+                        <input type="radio" name="gender" value="Other"> Other
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="country">Country:</label></td>
+                    <td>
+                        <select id="country" name="country" required>
+                            <option value="">--Select--</option>
+                            <option value="India">India</option>
+                            <option value="USA">USA</option>
+                            <option value="UK">UK</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Canada">Canada</option>
+                            <!-- Add more countries as needed -->
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-buttons">
+                <input type="submit" value="Submit">
+                <input type="reset" value="Cancel">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            const nameRegex = /^[A-Za-z]+$/;
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const dob = document.getElementById("dob").value;
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const genderChecked = document.querySelector('input[name="gender"]:checked');
+            const country = document.getElementById("country").value;
+
+            let isValid = true;
+            let errors = [];
+
+            if (!nameRegex.test(firstName)) {
+                isValid = false;
+                errors.push("First name must contain only letters.");
+            }
+            if (!nameRegex.test(lastName)) {
+                isValid = false;
+                errors.push("Last name must contain only letters.");
+            }
+            if (!dob) {
+                isValid = false;
+                errors.push("Date of birth must be selected.");
+            }
+            if (!email) {
+                isValid = false;
+                errors.push("Email is required.");
+            }
+            if (!phone.match(/^\d{10}$/)) {
+                isValid = false;
+                errors.push("Phone number must be 10 digits.");
+            }
+            if (!genderChecked) {
+                isValid = false;
+                errors.push("Gender must be selected.");
+            }
+            if (!country) {
+                isValid = false;
+                errors.push("Country must be selected.");
+            }
+
+            if (!isValid) {
+                alert("Form submission failed:\n\n" + errors.join("\n"));
+                event.preventDefault();
+            }
+        });
+    </script>
+    </body>
+    </html>
